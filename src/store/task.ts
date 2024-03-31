@@ -9,6 +9,8 @@ type TaskState = {
 type TaskActions = {
   actions: {
     addTask: (args: AddTaskArgs) => void;
+    toggleCheckedTask: (id: Task["id"]) => void;
+    putCheckedTaskToTheLast: () => void;
   };
 };
 
@@ -26,6 +28,28 @@ const taskStore = create<TaskState & TaskActions>()((set) => ({
           { id: crypto.randomUUID(), name, description, checked: false },
         ],
       })),
+    toggleCheckedTask: (id) =>
+      set((state) => ({
+        tasks: state.tasks.map((task) => {
+          if (task.id === id) {
+            return {
+              ...task,
+              checked: !task.checked,
+            };
+          }
+
+          return task;
+        }),
+      })),
+    putCheckedTaskToTheLast: () =>
+      set((state) => {
+        const checkedTasks = state.tasks.filter((task) => task.checked);
+        const unCheckedTasks = state.tasks.filter((task) => !task.checked);
+
+        return {
+          tasks: [...unCheckedTasks, ...checkedTasks],
+        };
+      }),
   },
 }));
 
