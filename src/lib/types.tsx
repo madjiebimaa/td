@@ -7,11 +7,14 @@ export type MobileNavLink = {
   Icon: LucideIcon;
 };
 
+export type TaskPriority = 1 | 2 | 3 | 4;
+
 export type Task = {
   id: string;
   name: string;
   description?: string;
   checked: boolean;
+  priority: TaskPriority;
 };
 
-export type AddTaskArgs = Pick<Task, "name" | "description">;
+export type AddTaskArgs = Pick<Task, "name" | "description" | "priority">;

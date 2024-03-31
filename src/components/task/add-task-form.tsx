@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import AutoGrowInput from "@/components/global/auto-grow-input";
+import TaskPriorityPopover from "@/components/task/task-priority-popover";
 import { Button } from "@/components/ui/button";
 import { DrawerFooter } from "@/components/ui/drawer";
 import {
@@ -18,11 +19,14 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 
+import { TaskPriority } from "@/lib/types";
 import { useTaskActions } from "@/store/task";
+import { DEFAULT_TASK_PRIORITY } from "@/lib/constants";
 
 const FormSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
+  priority: z.number(),
 });
 
 export default function AddTaskForm() {
@@ -31,6 +35,7 @@ export default function AddTaskForm() {
     defaultValues: {
       name: "",
       description: "",
+      priority: 0,
     },
   });
 
@@ -38,9 +43,13 @@ export default function AddTaskForm() {
   const taskActions = useTaskActions();
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    const { name, description } = values;
+    const { name, description, priority } = values;
 
-    taskActions.addTask({ name, description });
+    taskActions.addTask({
+      name,
+      description,
+      priority: (priority as TaskPriority) || DEFAULT_TASK_PRIORITY,
+    });
     taskActions.putCheckedTaskToTheLast();
     form.reset();
 
@@ -92,6 +101,18 @@ export default function AddTaskForm() {
                     placeholder="Description"
                     className="text-base font-semibold"
                   />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="priority"
+            render={() => (
+              <FormItem>
+                <FormLabel className="sr-only">Priority</FormLabel>
+                <FormControl>
+                  <TaskPriorityPopover form={form} />
                 </FormControl>
               </FormItem>
             )}
