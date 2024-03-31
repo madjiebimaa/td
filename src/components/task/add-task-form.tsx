@@ -41,6 +41,7 @@ export default function AddTaskForm() {
     const { name, description } = values;
 
     taskActions.addTask({ name, description });
+    taskActions.putCheckedTaskToTheLast();
     form.reset();
 
     if (autoFocusRef.current) {

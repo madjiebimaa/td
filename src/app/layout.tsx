@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 
+import MobileNavbar from "@/components/global/mobile-navbar";
+import TaskDrawer from "@/components/task/task-drawer";
+
 import { nunito } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 
 import "./globals.css";
 
@@ -17,8 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={nunito.className} suppressHydrationWarning>
+      <body
+        className={cn(
+          "flex max-h-screen min-h-screen flex-col",
+          nunito.className,
+        )}
+        suppressHydrationWarning
+      >
         {children}
+        <TaskDrawer />
+        <MobileNavbar className="fixed inset-x-0 bottom-0" />
       </body>
     </html>
   );
