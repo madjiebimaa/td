@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import AutoGrowInput from "@/components/global/auto-grow-input";
-import TaskPriorityPopover from "@/components/task/task-priority-popover";
+import TaskPrioritySelect from "@/components/task/task-priority-select";
 import { Button } from "@/components/ui/button";
 import { DrawerFooter } from "@/components/ui/drawer";
 import {
@@ -19,14 +19,14 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 
+import { DEFAULT_TASK_PRIORITY } from "@/lib/constants";
 import { TaskPriority } from "@/lib/types";
 import { useTaskActions } from "@/store/task";
-import { DEFAULT_TASK_PRIORITY } from "@/lib/constants";
 
 const FormSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
-  priority: z.number(),
+  priority: z.number({ coerce: true }),
 });
 
 export default function AddTaskForm() {
@@ -108,12 +108,10 @@ export default function AddTaskForm() {
           <FormField
             control={form.control}
             name="priority"
-            render={() => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel className="sr-only">Priority</FormLabel>
-                <FormControl>
-                  <TaskPriorityPopover form={form} />
-                </FormControl>
+                <TaskPrioritySelect form={form} field={field} />
               </FormItem>
             )}
           />
