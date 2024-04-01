@@ -15,7 +15,7 @@ export default function ProjectCard({
   return (
     <Card
       className={cn(
-        "flex aspect-square size-40 items-center gap-2 rounded-xl border-0 p-4 shadow-lg",
+        "flex aspect-square size-40 cursor-pointer items-center gap-2 rounded-xl border-0 p-4 shadow-lg hover:opacity-90",
         project.color.code,
         className,
       )}

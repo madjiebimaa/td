@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         {children}
         <AddTaskDrawer />
-        <MobileNavbar className="fixed inset-x-0 bottom-0" />
+        <MobileNavbar className="fixed inset-x-0 bottom-0 z-10" />
       </body>
     </html>
   );

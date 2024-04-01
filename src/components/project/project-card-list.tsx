@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import ProjectCard from "@/components/project/project-card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
@@ -11,7 +13,12 @@ export default function ProjectCardList() {
 
   return (
     <ScrollArea>
-      <section className="flex h-fit items-center gap-2 pb-8 pl-4 pr-0 pt-4">
+      <motion.section
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+        className="flex h-fit items-center gap-2 pb-8 pl-4 pr-0 pt-4"
+      >
         {projects.map((project, index) => {
           const isLastIndex = index === projects.length - 1;
 
@@ -26,7 +33,7 @@ export default function ProjectCardList() {
             />
           );
         })}
-      </section>
+      </motion.section>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );

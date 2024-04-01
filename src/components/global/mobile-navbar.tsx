@@ -1,6 +1,7 @@
 "use client";
 
 import { Archive, Calendar, Menu, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 import NavLink from "@/components/global/nav-link";
@@ -19,17 +20,21 @@ export default function MobileNavbar({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"nav">) {
+  const pathname = usePathname();
+
   return (
     <nav
       className={cn(
-        "relative z-10 mx-auto flex w-full max-w-md items-center justify-between bg-secondary p-4",
+        "relative mx-auto flex w-full max-w-md items-center justify-between bg-secondary p-4",
         className,
       )}
       {...props}
     >
-      {links.map((link) => (
-        <NavLink key={link.id} link={link} />
-      ))}
+      {links.map((link) => {
+        const isLinkActive = pathname === link.href;
+
+        return <NavLink key={link.id} link={link} isActive={isLinkActive} />;
+      })}
     </nav>
   );
 }
