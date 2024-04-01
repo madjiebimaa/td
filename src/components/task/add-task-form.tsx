@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import AutoGrowInput from "@/components/global/auto-grow-input";
+import ProjectOptionList from "@/components/project/project-option-list";
 import TaskPrioritySelect from "@/components/task/task-priority-select";
 import { Button } from "@/components/ui/button";
 import { DrawerFooter } from "@/components/ui/drawer";
@@ -19,14 +20,19 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 
-import { DEFAULT_TASK_PRIORITY } from "@/lib/constants";
+import {
+  DEFAULT_TASK_PRIORITY,
+  DEFAULT_TASK_PROJECT_ID,
+} from "@/lib/constants";
 import { TaskPriority } from "@/lib/types";
+import { useProjects } from "@/store/project";
 import { useTaskActions } from "@/store/task";
 
 const FormSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   priority: z.number({ coerce: true }),
+  projectId: z.string().nullable(),
 });
 
 export default function AddTaskForm() {
@@ -36,19 +42,22 @@ export default function AddTaskForm() {
       name: "",
       description: "",
       priority: 0,
+      projectId: DEFAULT_TASK_PROJECT_ID,
     },
   });
 
   const autoFocusRef = useRef<HTMLTextAreaElement | null>(null);
   const taskActions = useTaskActions();
+  const projects = useProjects();
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    const { name, description, priority } = values;
+    const { name, description, priority, projectId } = values;
 
     taskActions.addTask({
       name,
       description,
       priority: (priority as TaskPriority) || DEFAULT_TASK_PRIORITY,
+      projectId,
     });
     taskActions.putCheckedTaskToTheLast();
     form.reset();
@@ -68,12 +77,12 @@ export default function AddTaskForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <section className="flex flex-col gap-2 p-4">
+        <section className="flex flex-col gap-2 py-4">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="px-4">
                 <FormLabel className="sr-only">Task Name</FormLabel>
                 <FormControl>
                   <AutoGrowInput
@@ -93,7 +102,7 @@ export default function AddTaskForm() {
             control={form.control}
             name="description"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="px-4">
                 <FormLabel className="sr-only">Description</FormLabel>
                 <FormControl>
                   <AutoGrowInput
@@ -109,12 +118,26 @@ export default function AddTaskForm() {
             control={form.control}
             name="priority"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="px-4">
                 <FormLabel className="sr-only">Priority</FormLabel>
                 <TaskPrioritySelect form={form} field={field} />
               </FormItem>
             )}
           />
+          {projects.length !== 0 && (
+            <FormField
+              control={form.control}
+              name="projectId"
+              render={() => (
+                <FormItem className="pl-4">
+                  <FormLabel className="text-lg font-semibold">
+                    Project
+                  </FormLabel>
+                  <ProjectOptionList form={form} />
+                </FormItem>
+              )}
+            />
+          )}
         </section>
         <Separator />
         <DrawerFooter className="flex-row justify-end">

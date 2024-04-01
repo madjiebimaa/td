@@ -16,7 +16,7 @@ interface ProjectColorListProps {
 export default function ProjectColorList({ form }: ProjectColorListProps) {
   return (
     <ScrollArea>
-      <section className="mb-4 flex items-center gap-2 overflow-x-auto">
+      <section className="flex items-center gap-2 overflow-x-auto pb-4">
         {PROJECT_COLORS.map((projectColor, index) => {
           const handleSelectColor = () => {
             form.setValue("color", projectColor);

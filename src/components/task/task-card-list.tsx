@@ -1,17 +1,18 @@
-"use client";
-
 import TaskCard from "@/components/task/task-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+import { Task } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { useTasks } from "@/store/task";
+
+interface TaskCardListProps extends React.ComponentPropsWithoutRef<"section"> {
+  tasks: Task[];
+}
 
 export default function TaskCardList({
+  tasks,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"section">) {
-  const tasks = useTasks();
-
+}: TaskCardListProps) {
   return (
     <ScrollArea className="h-screen max-h-screen">
       <section className={cn("flex flex-col", className)} {...props}>

@@ -15,6 +15,7 @@ export type Task = {
   description?: string;
   checked: boolean;
   priority: TaskPriority;
+  projectId: Project["id"] | null;
 };
 
 export type ProjectColor = {
@@ -29,5 +30,8 @@ export type Project = {
   color: ProjectColor;
 };
 
-export type AddTaskArgs = Pick<Task, "name" | "description" | "priority">;
+export type AddTaskArgs = Pick<
+  Task,
+  "name" | "description" | "priority" | "projectId"
+>;
 export type AddProjectArgs = Pick<Project, "name" | "color">;

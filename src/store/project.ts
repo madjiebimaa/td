@@ -5,16 +5,19 @@ import { AddProjectArgs, Project } from "@/lib/types";
 
 type ProjectState = {
   projects: Project[];
+  selectedProject: Project | null;
 };
 
 type ProjectActions = {
   actions: {
     addProject: (args: AddProjectArgs) => void;
+    selectProject: (id: Project["id"]) => void;
   };
 };
 
 const initialState: ProjectState = {
   projects: [],
+  selectedProject: null,
 };
 
 const projectStore = create<ProjectState & ProjectActions>()(
@@ -29,6 +32,12 @@ const projectStore = create<ProjectState & ProjectActions>()(
               { id: crypto.randomUUID(), name, color },
             ],
           })),
+        selectProject: (id) =>
+          set((state) => ({
+            selectedProject: state.projects.find(
+              (project) => project.id === id,
+            ),
+          })),
       },
     }),
     {
@@ -42,4 +51,6 @@ const projectStore = create<ProjectState & ProjectActions>()(
 );
 
 export const useProjects = () => projectStore((state) => state.projects);
+export const useSelectedProject = () =>
+  projectStore((state) => state.selectedProject);
 export const useProjectActions = () => projectStore((state) => state.actions);

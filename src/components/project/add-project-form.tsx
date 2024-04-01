@@ -93,7 +93,7 @@ export default function AddProjectForm() {
             render={() => (
               <FormItem className="pl-4">
                 <div className="flex items-center gap-2">
-                  <FormLabel className="text-xl font-bold">Color</FormLabel>
+                  <FormLabel className="text-lg font-semibold">Color</FormLabel>
                   <div
                     className={cn(
                       "size-6 shrink-0 rounded-full",

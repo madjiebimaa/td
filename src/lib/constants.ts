@@ -1,7 +1,8 @@
-import { ProjectColor, TaskPriority } from "@/lib/types";
+import { ProjectColor, Task, TaskPriority } from "@/lib/types";
 
 export const DEFAULT_TASK_PRIORITY: TaskPriority = 4;
 export const DEFAULT_TASK_CHECKED: boolean = false;
+export const DEFAULT_TASK_PROJECT_ID: Task["projectId"] = null;
 
 export const TASK_PRIORITIES: { id: TaskPriority; label: string }[] = [
   { id: 1, label: "P1" },

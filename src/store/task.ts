@@ -1,7 +1,11 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { DEFAULT_TASK_CHECKED, DEFAULT_TASK_PRIORITY } from "@/lib/constants";
+import {
+  DEFAULT_TASK_CHECKED,
+  DEFAULT_TASK_PRIORITY,
+  DEFAULT_TASK_PROJECT_ID,
+} from "@/lib/constants";
 import { AddTaskArgs, Task } from "@/lib/types";
 
 type TaskState = {
@@ -25,7 +29,12 @@ const taskStore = create<TaskState & TaskActions>()(
     (set) => ({
       ...initialState,
       actions: {
-        addTask: ({ name, description, priority = DEFAULT_TASK_PRIORITY }) =>
+        addTask: ({
+          name,
+          description,
+          priority = DEFAULT_TASK_PRIORITY,
+          projectId = DEFAULT_TASK_PROJECT_ID,
+        }) =>
           set((state) => ({
             tasks: [
               ...state.tasks,
@@ -35,6 +44,7 @@ const taskStore = create<TaskState & TaskActions>()(
                 description,
                 checked: DEFAULT_TASK_CHECKED,
                 priority,
+                projectId,
               },
             ],
           })),

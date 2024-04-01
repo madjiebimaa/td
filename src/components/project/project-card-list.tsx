@@ -17,7 +17,7 @@ export default function ProjectCardList() {
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
-        className="flex h-fit items-center gap-2 pb-8 pl-4 pr-0 pt-4"
+        className="flex h-fit items-center gap-2 pb-32 pl-4 pr-0 pt-4"
       >
         {projects.map((project, index) => {
           const isLastIndex = index === projects.length - 1;

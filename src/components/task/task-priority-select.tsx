@@ -22,12 +22,14 @@ interface TaskPrioritySelectProps {
     name: string;
     priority: number;
     description?: string | undefined;
+    projectId: string | null;
   }>;
   field: ControllerRenderProps<
     {
-      priority: number;
       name: string;
+      priority: number;
       description?: string | undefined;
+      projectId: string | null;
     },
     "priority"
   >;
