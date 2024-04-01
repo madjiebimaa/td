@@ -8,7 +8,7 @@ export default function InboxPage() {
     <main className="mx-auto flex h-full w-full max-w-md flex-1 flex-col overflow-hidden">
       <section className="flex items-center justify-between p-4">
         <h2 className="text-xl font-bold">Inbox</h2>
-        <Button variant="ghost" size="icon" className="shrink-0">
+        <Button variant="ghost" size="icon" className="shrink-0 rounded-full">
           <EllipsisVertical className="size-6 shrink-0" />
         </Button>
       </section>

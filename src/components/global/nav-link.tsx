@@ -26,7 +26,7 @@ export default function NavLink({ link }: NavLinkProps) {
           variant: "ghost",
           size: "icon",
           className:
-            "group/link-button size-fit shrink-0 flex-col gap-1 focus-visible:ring-muted-foreground",
+            "group/link-button size-fit shrink-0 flex-col gap-1 rounded-xl focus-visible:ring-muted-foreground",
         }),
       )}
     >

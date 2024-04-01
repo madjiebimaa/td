@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import MobileNavbar from "@/components/global/mobile-navbar";
-import TaskDrawer from "@/components/task/task-drawer";
+import AddTaskDrawer from "@/components/task/add-task-drawer";
 
 import { nunito } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {children}
-        <TaskDrawer />
+        <AddTaskDrawer />
         <MobileNavbar className="fixed inset-x-0 bottom-0" />
       </body>
     </html>

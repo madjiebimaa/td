@@ -33,15 +33,16 @@ export default function TaskCard({ task }: TaskCardProps) {
   const taskColor = TASK_PRIORITY_COLOR_MAP.get(task.priority)!;
 
   return (
-    <Card className="flex gap-2 rounded-none border-0 border-b py-3 shadow-none">
+    <Card className="flex gap-2 rounded-none border-0 border-b py-3 pr-2 shadow-none">
       <AnimatedButton
         variant="outline"
         size="icon"
         whileTap={{ scale: 1.5 }}
         className={cn(
-          "mt-0.5 size-6 shrink-0 rounded-full",
+          "mt-0.5 size-6 shrink-0 rounded-full border-2",
           taskColor.borderColor,
           taskColor.hover,
+          taskColor.ringColor,
           task.checked && taskColor.backgroundColor,
         )}
         onClick={handleCheckedClick}
