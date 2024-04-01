@@ -17,4 +17,17 @@ export type Task = {
   priority: TaskPriority;
 };
 
+export type ProjectColor = {
+  id: string;
+  label: string;
+  code: string;
+};
+
+export type Project = {
+  id: string;
+  name: string;
+  color: ProjectColor;
+};
+
 export type AddTaskArgs = Pick<Task, "name" | "description" | "priority">;
+export type AddProjectArgs = Pick<Project, "name" | "color">;
