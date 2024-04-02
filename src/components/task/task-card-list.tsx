@@ -4,7 +4,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Task } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-interface TaskCardListProps extends React.ComponentPropsWithoutRef<"section"> {
+interface TaskCardListProps
+  extends React.ComponentPropsWithoutRef<typeof ScrollArea> {
   tasks: Task[];
 }
 
@@ -14,8 +15,8 @@ export default function TaskCardList({
   ...props
 }: TaskCardListProps) {
   return (
-    <ScrollArea className="h-screen max-h-screen">
-      <section className={cn("flex flex-col", className)} {...props}>
+    <ScrollArea className={cn("flex-1", className)} {...props}>
+      <section className="flex flex-col pl-4">
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} />
         ))}

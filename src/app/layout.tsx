@@ -22,10 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(
-          "flex max-h-screen min-h-screen flex-col",
-          nunito.className,
-        )}
+        className={cn("flex h-dvh flex-col antialiased", nunito.className)}
         suppressHydrationWarning
       >
         {children}

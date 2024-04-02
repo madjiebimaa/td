@@ -21,7 +21,7 @@ export default function BrowsePage() {
     : [];
 
   return (
-    <main className="mx-auto flex h-full w-full max-w-md flex-1 flex-col overflow-hidden">
+    <main className="mx-auto flex h-full w-full max-w-md flex-col">
       <section className="flex items-center justify-between p-4">
         <h2 className="text-xl font-bold">My Projects</h2>
         <AddProjectDrawer>
@@ -30,9 +30,9 @@ export default function BrowsePage() {
           </Button>
         </AddProjectDrawer>
       </section>
-      <ProjectCardList />
+      <ProjectCardList className="pl-4" />
       <ProjectProgress tasks={selectedTasks} className="p-4" />
-      <TaskCardList tasks={selectedTasks} className="pb-[150px] pl-4" />
+      <TaskCardList tasks={selectedTasks} className="mb-[100px] pl-4" />
     </main>
   );
 }
