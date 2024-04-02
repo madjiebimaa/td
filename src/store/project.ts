@@ -45,6 +45,7 @@ const projectStore = create<ProjectState & ProjectActions>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         projects: state.projects,
+        selectedProject: state.selectedProject,
       }),
     },
   ),

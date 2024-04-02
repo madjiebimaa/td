@@ -10,11 +10,11 @@ export default function AddTaskDrawer() {
   const AnimatedAddTaskButton = motion(AddTaskButton);
 
   return (
-    <Drawer>
+    <Drawer shouldScaleBackground>
       <div className="relative mx-auto w-full max-w-md">
         <DrawerTrigger asChild>
           <AnimatedAddTaskButton
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0, rotate: 360 }}
             transition={{ duration: 1 }}
             className="absolute bottom-24 right-4 z-10"

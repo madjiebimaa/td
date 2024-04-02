@@ -1,12 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizonal } from "lucide-react";
+import { Plus, SendHorizonal } from "lucide-react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import AutoGrowInput from "@/components/global/auto-grow-input";
+import AddProjectDrawer from "@/components/project/add-project-drawer";
 import ProjectOptionList from "@/components/project/project-option-list";
 import TaskPrioritySelect from "@/components/task/task-priority-select";
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,6 @@ import {
   DEFAULT_TASK_PROJECT_ID,
 } from "@/lib/constants";
 import { TaskPriority } from "@/lib/types";
-import { useProjects } from "@/store/project";
 import { useTaskActions } from "@/store/task";
 
 const FormSchema = z.object({
@@ -47,8 +47,8 @@ export default function AddTaskForm() {
   });
 
   const autoFocusRef = useRef<HTMLTextAreaElement | null>(null);
+  const shrinkInputRef = useRef<HTMLTextAreaElement | null>(null);
   const taskActions = useTaskActions();
-  const projects = useProjects();
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     const { name, description, priority, projectId } = values;
@@ -62,7 +62,10 @@ export default function AddTaskForm() {
     taskActions.putCheckedTaskToTheLast();
     form.reset();
 
-    if (autoFocusRef.current) {
+    if (autoFocusRef.current && shrinkInputRef.current) {
+      autoFocusRef.current.style.height = "auto";
+      shrinkInputRef.current.style.height = "auto";
+
       autoFocusRef.current.focus();
     }
   };
@@ -107,6 +110,9 @@ export default function AddTaskForm() {
                 <FormControl>
                   <AutoGrowInput
                     {...field}
+                    ref={shrinkInputRef}
+                    autoFocus
+                    autoComplete="off"
                     placeholder="Description"
                     className="text-base font-semibold"
                   />
@@ -124,20 +130,27 @@ export default function AddTaskForm() {
               </FormItem>
             )}
           />
-          {projects.length !== 0 && (
-            <FormField
-              control={form.control}
-              name="projectId"
-              render={() => (
-                <FormItem className="pl-4">
-                  <FormLabel className="text-lg font-semibold">
-                    Project
-                  </FormLabel>
+          <FormField
+            control={form.control}
+            name="projectId"
+            render={() => (
+              <FormItem className="space-y-0 pl-4">
+                <FormLabel className="text-lg font-semibold">Project</FormLabel>
+                <section className="flex gap-2">
+                  <AddProjectDrawer>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="shrink-0 rounded-full"
+                    >
+                      <Plus className="size-6 shrink-0 text-muted-foreground" />
+                    </Button>
+                  </AddProjectDrawer>
                   <ProjectOptionList form={form} />
-                </FormItem>
-              )}
-            />
-          )}
+                </section>
+              </FormItem>
+            )}
+          />
         </section>
         <Separator />
         <DrawerFooter className="flex-row justify-end">

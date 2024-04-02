@@ -20,7 +20,7 @@ export default function InboxPage() {
           <EllipsisVertical className="size-6 shrink-0" />
         </Button>
       </section>
-      <ProjectProgress tasks={inboxTasks} className="py-4" />
+      <ProjectProgress tasks={inboxTasks} className="p-4" />
       <TaskCardList tasks={inboxTasks} className="pb-[150px] pl-4" />
     </main>
   );

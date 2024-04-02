@@ -1,17 +1,13 @@
-import { Plus } from "lucide-react";
-
 import AddProjectForm from "@/components/project/add-project-form";
-import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
-export default function AddProjectDrawer() {
+export default function AddProjectDrawer({
+  children,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof Drawer>) {
   return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="ghost" size="icon" className="shrink-0 rounded-full">
-          <Plus className="size-6 shrink-0" />
-        </Button>
-      </DrawerTrigger>
+    <Drawer {...props}>
+      <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent className="mx-auto max-w-md">
         <AddProjectForm />
       </DrawerContent>

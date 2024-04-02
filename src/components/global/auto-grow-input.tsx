@@ -23,7 +23,7 @@ const AutoGrowInput = React.forwardRef<HTMLTextAreaElement, AutoGrowInputProps>(
         ref={ref}
         rows={1}
         className={cn(
-          "h-fit min-h-min resize-none overflow-hidden rounded-none border-0 p-0 focus-visible:ring-0",
+          "h-fit min-h-min resize-none overflow-hidden rounded-none border-0 p-0 focus-visible:ring-0 focus-visible:ring-transparent",
           className,
         )}
         onInput={handleInputGrow}

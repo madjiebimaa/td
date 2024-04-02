@@ -1,9 +1,12 @@
 "use client";
 
+import { Plus } from "lucide-react";
+
 import AddProjectDrawer from "@/components/project/add-project-drawer";
 import ProjectCardList from "@/components/project/project-card-list";
 import ProjectProgress from "@/components/project/project-progress";
 import TaskCardList from "@/components/task/task-card-list";
+import { Button } from "@/components/ui/button";
 
 import { Task } from "@/lib/types";
 import { useSelectedProject } from "@/store/project";
@@ -21,10 +24,14 @@ export default function BrowsePage() {
     <main className="mx-auto flex h-full w-full max-w-md flex-1 flex-col overflow-hidden">
       <section className="flex items-center justify-between p-4">
         <h2 className="text-xl font-bold">My Projects</h2>
-        <AddProjectDrawer />
+        <AddProjectDrawer>
+          <Button variant="ghost" size="icon" className="shrink-0 rounded-full">
+            <Plus className="size-6 shrink-0" />
+          </Button>
+        </AddProjectDrawer>
       </section>
       <ProjectCardList />
-      <ProjectProgress tasks={selectedTasks} className="py-4" />
+      <ProjectProgress tasks={selectedTasks} className="p-4" />
       <TaskCardList tasks={selectedTasks} className="pb-[150px] pl-4" />
     </main>
   );
