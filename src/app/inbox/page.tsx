@@ -6,11 +6,14 @@ import ProjectProgress from "@/components/project/project-progress";
 import TaskCardList from "@/components/task/task-card-list";
 import { Button } from "@/components/ui/button";
 
+import { DEFAULT_TASK_PROJECT_ID } from "@/lib/constants";
 import { useTasks } from "@/store/task";
 
 export default function InboxPage() {
   const tasks = useTasks();
-  const inboxTasks = tasks.filter((task) => !task.projectId);
+  const inboxTasks = tasks.filter(
+    (task) => task.projectId === DEFAULT_TASK_PROJECT_ID,
+  );
 
   return (
     <main className="mx-auto flex h-full w-full max-w-md flex-col">

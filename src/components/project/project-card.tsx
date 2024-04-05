@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { PROJECT_COLOR_MAP } from "@/lib/constants";
 
 import { Project } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -20,11 +21,13 @@ export default function ProjectCard({
 
   const isActive = selectedProject ? selectedProject.id === project.id : false;
 
+  const projectColor = PROJECT_COLOR_MAP.get(project.colorId)!;
+
   return (
     <Card
       className={cn(
         "flex aspect-square size-40 cursor-pointer flex-col items-center justify-between gap-2 rounded-xl border-0 p-4 shadow-lg transition-colors duration-300 hover:opacity-90",
-        project.color.code,
+        projectColor.code,
         isActive && "bg-gradient-to-r from-primary via-primary to-primary",
         className,
       )}

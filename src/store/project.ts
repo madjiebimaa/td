@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+import { DEFAULT_PROJECT_COLOR } from "@/lib/constants";
 import { AddProjectArgs, Project } from "@/lib/types";
 
 type ProjectState = {
@@ -25,11 +26,15 @@ const projectStore = create<ProjectState & ProjectActions>()(
     (set) => ({
       ...initialState,
       actions: {
-        addProject: ({ name, color }) =>
+        addProject: ({ name, colorId = DEFAULT_PROJECT_COLOR.id }) =>
           set((state) => ({
             projects: [
               ...state.projects,
-              { id: crypto.randomUUID(), name, color },
+              {
+                id: crypto.randomUUID(),
+                name,
+                colorId,
+              },
             ],
           })),
         selectProject: (id) =>

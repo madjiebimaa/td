@@ -1,6 +1,5 @@
 "use client";
 
-import { Flag } from "lucide-react";
 import { useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 
@@ -14,38 +13,33 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { TASK_PRIORITIES, TASK_PRIORITY_MAP } from "@/lib/constants";
-import { TaskPriorityId } from "@/lib/types";
+import { PROJECT_COLORS, PROJECT_COLOR_MAP } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-interface TaskPrioritySelectProps {
+interface ProjectColorSelectProps {
   form: UseFormReturn<{
     name: string;
-    priorityId: number;
-    projectId: string;
-    description?: string | undefined;
+    colorId: string;
   }>;
   field: ControllerRenderProps<
     {
       name: string;
-      priorityId: number;
-      projectId: string;
-      description?: string | undefined;
+      colorId: string;
     },
-    "priorityId"
+    "colorId"
   >;
 }
 
-export default function TaskPrioritySelect({
+export default function ProjectColorSelect({
   form,
   field,
-}: TaskPrioritySelectProps) {
+}: ProjectColorSelectProps) {
   const [hasSelected, setHasSelected] = useState(false);
 
-  const priorityId = Number(form.getValues("priorityId"));
-  const selectedPriority = TASK_PRIORITY_MAP.get(priorityId as TaskPriorityId);
+  const colorId = form.getValues("colorId");
+  const selectedProjectColor = PROJECT_COLOR_MAP.get(colorId);
 
-  const isSelected = hasSelected && !!selectedPriority;
+  const isSelected = hasSelected && !!selectedProjectColor;
 
   return (
     <Select
@@ -55,7 +49,7 @@ export default function TaskPrioritySelect({
           setHasSelected(true);
         }
       }}
-      defaultValue={field.value.toString()}
+      defaultValue={field.value}
     >
       <FormControl>
         <SelectTrigger
@@ -68,43 +62,46 @@ export default function TaskPrioritySelect({
         >
           <SelectValue role="button">
             <div className="flex items-center justify-center gap-2">
-              <Flag
+              <span
                 className={cn(
-                  "size-4 shrink-0 text-muted-foreground",
-                  isSelected &&
-                    `${selectedPriority.color.text} ${selectedPriority.color.fill}`,
+                  "size-4 shrink-0 rounded-full bg-gradient-to-r from-muted-foreground via-muted-foreground to-muted-foreground",
+                  isSelected && selectedProjectColor.code,
                 )}
               />
               <span
                 className={cn(
                   "font-semibold text-muted-foreground",
-                  isSelected && selectedPriority.color.text,
+                  isSelected && `${selectedProjectColor.code} bg-clip-text`,
                 )}
               >
-                {isSelected ? selectedPriority.label : "Priority"}
+                {isSelected ? selectedProjectColor.label : "Color"}
               </span>
             </div>
           </SelectValue>
         </SelectTrigger>
       </FormControl>
-      <SelectContent className="w-[200px]">
-        {TASK_PRIORITIES.map((taskPriority) => (
+      <SelectContent className="max-h-[245px] w-[200px]">
+        {PROJECT_COLORS.map((projectColor) => (
           <SelectItem
-            key={taskPriority.id}
-            value={taskPriority.id.toString()}
+            key={projectColor.id}
+            value={projectColor.id}
             withIcon={false}
             className="p-2"
           >
             <div className="flex items-center justify-center gap-2">
-              <Flag
+              <span
                 className={cn(
-                  "size-4 shrink-0 text-muted-foreground",
-                  taskPriority.color.text,
-                  taskPriority.color.fill,
+                  "size-4 shrink-0 rounded-full text-muted-foreground",
+                  projectColor.code,
                 )}
               />
-              <span className="font-semibold text-muted-foreground">
-                Priority {taskPriority.id}
+              <span
+                className={cn(
+                  "font-semibold text-muted-foreground",
+                  `${projectColor.code} bg-clip-text`,
+                )}
+              >
+                {projectColor.label}
               </span>
             </div>
           </SelectItem>

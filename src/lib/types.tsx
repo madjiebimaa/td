@@ -1,21 +1,14 @@
 import { LucideIcon } from "lucide-react";
 
-export type MobileNavLink = {
-  id: string;
-  href: string;
-  label: string;
-  Icon: LucideIcon;
-};
-
-export type TaskPriority = 1 | 2 | 3 | 4;
+export type TaskPriorityId = 1 | 2 | 3 | 4;
 
 export type Task = {
   id: string;
   name: string;
   description?: string;
   checked: boolean;
-  priority: TaskPriority;
-  projectId: Project["id"] | null;
+  priorityId: TaskPriorityId;
+  projectId: Project["id"];
 };
 
 export type ProjectColor = {
@@ -27,11 +20,36 @@ export type ProjectColor = {
 export type Project = {
   id: string;
   name: string;
-  color: ProjectColor;
+  colorId: ProjectColor["id"];
 };
 
-export type AddTaskArgs = Pick<
-  Task,
-  "name" | "description" | "priority" | "projectId"
->;
-export type AddProjectArgs = Pick<Project, "name" | "color">;
+export type MobileNavLink = {
+  id: string;
+  href: string;
+  label: string;
+  Icon: LucideIcon;
+};
+
+export type TaskPriorityColor = {
+  text: string;
+  border: string;
+  background: string;
+  ring: string;
+  fill: string;
+  hover: string;
+};
+
+export type TaskPriority = {
+  id: TaskPriorityId;
+  label: string;
+  color: TaskPriorityColor;
+};
+
+export type AddTaskArgs = Pick<Task, "name" | "description"> & {
+  priorityId?: Task["priorityId"];
+  projectId?: Task["projectId"];
+};
+
+export type AddProjectArgs = Pick<Project, "name"> & {
+  colorId?: ProjectColor["id"];
+};

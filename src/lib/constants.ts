@@ -1,72 +1,67 @@
-import { ProjectColor, Task, TaskPriority } from "@/lib/types";
+import { ProjectColor, TaskPriority, TaskPriorityId } from "@/lib/types";
 
-export const DEFAULT_TASK_PRIORITY: TaskPriority = 4;
+export const DEFAULT_TASK_PROJECT_ID = "INBOX";
+
+export const DEFAULT_TASK_PRIORITY_ID: TaskPriorityId = 4;
 export const DEFAULT_TASK_CHECKED: boolean = false;
-export const DEFAULT_TASK_PROJECT_ID: Task["projectId"] = null;
 
-export const TASK_PRIORITIES: { id: TaskPriority; label: string }[] = [
-  { id: 1, label: "P1" },
-  { id: 2, label: "P2" },
-  { id: 3, label: "P3" },
-  { id: 4, label: "P4" },
-];
-
-export const TASK_PRIORITY_COLOR_MAP = new Map<
-  TaskPriority,
+export const TASK_PRIORITIES: TaskPriority[] = [
   {
-    textColor: string;
-    borderColor: string;
-    backgroundColor: string;
-    ringColor: string;
-    fillColor: string;
-    hover: string;
-  }
->([
-  [
-    1,
-    {
-      textColor: "text-red-400",
-      borderColor: "border-red-400",
-      backgroundColor: "bg-red-400",
-      ringColor: "focus-visible:ring-red-400",
-      fillColor: "fill-red-400",
+    id: 1,
+    label: "P1",
+    color: {
+      text: "text-red-400",
+      border: "border-red-400",
+      background: "bg-red-400",
+      ring: "focus-visible:ring-red-400",
+      fill: "fill-red-400",
       hover: "hover:bg-red-400/70",
     },
-  ],
-  [
-    2,
-    {
-      textColor: "text-yellow-400",
-      borderColor: "border-yellow-400",
-      backgroundColor: "bg-yellow-400",
-      ringColor: "focus-visible:ring-yellow-400",
-      fillColor: "fill-yellow-400",
+  },
+  {
+    id: 2,
+    label: "P2",
+    color: {
+      text: "text-yellow-400",
+      border: "border-yellow-400",
+      background: "bg-yellow-400",
+      ring: "focus-visible:ring-yellow-400",
+      fill: "fill-yellow-400",
       hover: "hover:bg-yellow-400/70",
     },
-  ],
-  [
-    3,
-    {
-      textColor: "text-blue-400",
-      borderColor: "border-blue-400",
-      backgroundColor: "bg-blue-400",
-      ringColor: "focus-visible:ring-blue-400",
-      fillColor: "fill-blue-400",
+  },
+  {
+    id: 3,
+    label: "P3",
+    color: {
+      text: "text-blue-400",
+      border: "border-blue-400",
+      background: "bg-blue-400",
+      ring: "focus-visible:ring-blue-400",
+      fill: "fill-blue-400",
       hover: "hover:bg-blue-400/70",
     },
-  ],
-  [
-    4,
-    {
-      textColor: "text-gray-400",
-      borderColor: "border-gray-400",
-      backgroundColor: "bg-gray-400",
-      ringColor: "focus-visible:ring-gray-400",
-      fillColor: "fill-gray-400",
+  },
+  {
+    id: 4,
+    label: "P4",
+    color: {
+      text: "text-gray-400",
+      border: "border-gray-400",
+      background: "bg-gray-400",
+      ring: "focus-visible:ring-gray-400",
+      fill: "fill-gray-400",
       hover: "hover:bg-gray-400/70",
     },
-  ],
-]);
+  },
+];
+
+export const TASK_PRIORITY_MAP: Map<
+  TaskPriority["id"],
+  Omit<TaskPriority, "id">
+> = new Map(
+  TASK_PRIORITIES.map(({ id, label, color }) => [id, { label, color }]),
+);
 
 export const PROJECT_COLORS: ProjectColor[] = [
   {
@@ -132,8 +127,14 @@ export const PROJECT_COLORS: ProjectColor[] = [
   {
     id: "valentine",
     label: "Valentine",
-    code: "bg-gradient-to-r from-red-200 to-red-600",
+    code: "bg-gradient-to-r from-red-200 via-red-400 to-red-600",
   },
 ];
 
+export const PROJECT_COLOR_MAP: Map<
+  ProjectColor["id"],
+  Omit<ProjectColor, "id">
+> = new Map(PROJECT_COLORS.map(({ id, label, code }) => [id, { label, code }]));
+
 export const DEFAULT_PROJECT_COLOR: ProjectColor = PROJECT_COLORS[0];
+export const UNKNOW_ID = "UNKNOW_ID";

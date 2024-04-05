@@ -11,10 +11,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { TASK_PRIORITY_COLOR_MAP } from "@/lib/constants";
 import { Task } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useTaskActions } from "@/store/task";
+import { TASK_PRIORITY_MAP } from "@/lib/constants";
 
 interface TaskCardProps {
   task: Task;
@@ -30,7 +30,7 @@ export default function TaskCard({ task }: TaskCardProps) {
 
   const AnimatedButton = motion(Button);
 
-  const taskColor = TASK_PRIORITY_COLOR_MAP.get(task.priority)!;
+  const taskPriority = TASK_PRIORITY_MAP.get(task.priorityId)!;
 
   return (
     <Card className="flex gap-2 rounded-none border-0 border-b py-3 pr-2 shadow-none">
@@ -40,10 +40,10 @@ export default function TaskCard({ task }: TaskCardProps) {
         whileTap={{ scale: 1.5 }}
         className={cn(
           "mt-0.5 size-6 shrink-0 rounded-full border-2",
-          taskColor.borderColor,
-          taskColor.hover,
-          taskColor.ringColor,
-          task.checked && taskColor.backgroundColor,
+          taskPriority.color.border,
+          taskPriority.color.hover,
+          taskPriority.color.ring,
+          task.checked && taskPriority.color.background,
         )}
         onClick={handleCheckedClick}
       >

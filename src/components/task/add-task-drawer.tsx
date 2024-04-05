@@ -11,7 +11,7 @@ export default function AddTaskDrawer() {
 
   return (
     <Drawer shouldScaleBackground>
-      <div className="relative mx-auto w-full max-w-md">
+      <div className="relative mx-auto w-full max-w-md flex-1">
         <DrawerTrigger asChild>
           <AnimatedAddTaskButton
             initial={{ opacity: 0, y: 50 }}

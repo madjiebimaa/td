@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import ProjectColorList from "@/components/project/project-color-list";
+import ProjectColorSelect from "@/components/project/project-color-select";
 import { Button } from "@/components/ui/button";
 import { DrawerFooter } from "@/components/ui/drawer";
 import {
@@ -19,18 +19,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
-import { DEFAULT_PROJECT_COLOR } from "@/lib/constants";
-import { ProjectColor } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { UNKNOW_ID } from "@/lib/constants";
 import { useProjectActions } from "@/store/project";
 
 const FormSchema = z.object({
   name: z.string().min(1),
-  color: z.object({
-    id: z.string(),
-    label: z.string(),
-    code: z.string(),
-  }),
+  colorId: z.string(),
 });
 
 export default function AddProjectForm() {
@@ -38,7 +32,7 @@ export default function AddProjectForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
-      color: DEFAULT_PROJECT_COLOR,
+      colorId: UNKNOW_ID,
     },
   });
 
@@ -46,9 +40,12 @@ export default function AddProjectForm() {
   const projectActions = useProjectActions();
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    const { name, color } = values;
+    const { name, colorId } = values;
 
-    projectActions.addProject({ name, color: color as ProjectColor });
+    projectActions.addProject({
+      name,
+      colorId: colorId === UNKNOW_ID ? undefined : colorId,
+    });
     form.reset();
 
     if (autoFocusRef.current) {
@@ -66,12 +63,12 @@ export default function AddProjectForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <section className="flex flex-col gap-4 py-4">
+        <section className="flex flex-col p-4">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem className="px-4">
+              <FormItem>
                 <FormLabel className="sr-only">Project Name</FormLabel>
                 <FormControl>
                   <Input
@@ -89,21 +86,11 @@ export default function AddProjectForm() {
           />
           <FormField
             control={form.control}
-            name="color"
-            render={() => (
-              <FormItem className="pl-4">
-                <div className="flex items-center gap-2">
-                  <FormLabel className="text-lg font-semibold">Color</FormLabel>
-                  <div
-                    className={cn(
-                      "size-6 shrink-0 rounded-full",
-                      form.getValues("color").code,
-                    )}
-                  />
-                </div>
-                <FormControl>
-                  <ProjectColorList form={form} />
-                </FormControl>
+            name="colorId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="sr-only">Color</FormLabel>
+                <ProjectColorSelect form={form} field={field} />
               </FormItem>
             )}
           />
