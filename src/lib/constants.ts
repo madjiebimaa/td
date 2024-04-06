@@ -137,4 +137,3 @@ export const PROJECT_COLOR_MAP: Map<
 > = new Map(PROJECT_COLORS.map(({ id, label, code }) => [id, { label, code }]));
 
 export const DEFAULT_PROJECT_COLOR: ProjectColor = PROJECT_COLORS[0];
-export const UNKNOW_ID = "UNKNOW_ID";

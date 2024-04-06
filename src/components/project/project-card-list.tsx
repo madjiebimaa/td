@@ -14,7 +14,7 @@ export default function ProjectCardList(
   const projects = useProjects();
 
   return (
-    <ScrollArea {...props}>
+    <ScrollArea {...props} className="mx-4">
       <motion.section
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}

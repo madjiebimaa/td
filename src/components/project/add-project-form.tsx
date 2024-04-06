@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
-import { UNKNOW_ID } from "@/lib/constants";
+import { DEFAULT_PROJECT_COLOR } from "@/lib/constants";
 import { useProjectActions } from "@/store/project";
 
 const FormSchema = z.object({
@@ -32,7 +32,7 @@ export default function AddProjectForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
-      colorId: UNKNOW_ID,
+      colorId: "",
     },
   });
 
@@ -44,7 +44,7 @@ export default function AddProjectForm() {
 
     projectActions.addProject({
       name,
-      colorId: colorId === UNKNOW_ID ? undefined : colorId,
+      colorId: colorId || DEFAULT_PROJECT_COLOR.id,
     });
     form.reset();
 

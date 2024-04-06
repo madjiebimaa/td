@@ -20,7 +20,10 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 
-import { UNKNOW_ID } from "@/lib/constants";
+import {
+  DEFAULT_TASK_PRIORITY_ID,
+  DEFAULT_TASK_PROJECT_ID,
+} from "@/lib/constants";
 import { TaskPriorityId } from "@/lib/types";
 import { useProjects } from "@/store/project";
 import { useTaskActions } from "@/store/task";
@@ -39,7 +42,7 @@ export default function AddTaskForm() {
       name: "",
       description: "",
       priorityId: 0,
-      projectId: UNKNOW_ID,
+      projectId: "",
     },
   });
 
@@ -54,8 +57,8 @@ export default function AddTaskForm() {
     taskActions.addTask({
       name,
       description,
-      priorityId: priorityId === 0 ? undefined : (priorityId as TaskPriorityId),
-      projectId: projectId === UNKNOW_ID ? undefined : projectId,
+      priorityId: (priorityId as TaskPriorityId) || DEFAULT_TASK_PRIORITY_ID,
+      projectId: projectId || DEFAULT_TASK_PROJECT_ID,
     });
     taskActions.putCheckedTaskToTheLast();
     form.reset();

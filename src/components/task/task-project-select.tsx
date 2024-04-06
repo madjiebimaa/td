@@ -58,7 +58,7 @@ export default function TaskProjectSelect({
           setHasSelected(true);
         }
       }}
-      defaultValue={field.value}
+      value={field.value}
     >
       <FormControl>
         <SelectTrigger
@@ -69,27 +69,36 @@ export default function TaskProjectSelect({
             className: "w-fit",
           })}
         >
-          <SelectValue role="button">
+          {isSelected ? (
+            <SelectValue role="button">
+              <div className="flex items-center justify-center gap-2">
+                <span
+                  className={cn(
+                    "size-4 shrink-0 rounded-full bg-gradient-to-r from-muted-foreground via-muted-foreground to-muted-foreground",
+                    selectedProjectColor.code,
+                  )}
+                />
+                <span
+                  className={cn(
+                    "font-semibold text-muted-foreground",
+                    `${selectedProjectColor.code} bg-clip-text`,
+                  )}
+                >
+                  {selectedProject.name}
+                </span>
+              </div>
+            </SelectValue>
+          ) : (
             <div className="flex items-center justify-center gap-2">
-              <span
-                className={cn(
-                  "size-4 shrink-0 rounded-full bg-gradient-to-r from-muted-foreground via-muted-foreground to-muted-foreground",
-                  isSelected && selectedProjectColor.code,
-                )}
-              />
-              <span
-                className={cn(
-                  "font-semibold text-muted-foreground",
-                  isSelected && `${selectedProjectColor.code} bg-clip-text`,
-                )}
-              >
-                {isSelected ? selectedProject.name : "Project"}
+              <span className="size-4 shrink-0 rounded-full bg-gradient-to-r from-muted-foreground via-muted-foreground to-muted-foreground" />
+              <span className="font-semibold text-muted-foreground">
+                Project
               </span>
             </div>
-          </SelectValue>
+          )}
         </SelectTrigger>
       </FormControl>
-      <SelectContent className="max-h-[245px] w-[200px]">
+      <SelectContent className="max-h-[245px] max-w-max">
         {projects.map((project) => {
           const projectColor = PROJECT_COLOR_MAP.get(project.colorId)!;
 

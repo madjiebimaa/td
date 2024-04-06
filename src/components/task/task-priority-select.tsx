@@ -55,7 +55,7 @@ export default function TaskPrioritySelect({
           setHasSelected(true);
         }
       }}
-      defaultValue={field.value.toString()}
+      value={field.value.toString()}
     >
       <FormControl>
         <SelectTrigger
@@ -66,28 +66,36 @@ export default function TaskPrioritySelect({
             className: "w-fit",
           })}
         >
-          <SelectValue role="button">
-            <div className="flex items-center justify-center gap-2">
-              <Flag
-                className={cn(
-                  "size-4 shrink-0 text-muted-foreground",
-                  isSelected &&
+          {isSelected ? (
+            <SelectValue role="button">
+              <div className="flex items-center justify-center gap-2">
+                <Flag
+                  className={cn(
+                    "size-4 shrink-0 text-muted-foreground",
                     `${selectedPriority.color.text} ${selectedPriority.color.fill}`,
-                )}
-              />
-              <span
-                className={cn(
-                  "font-semibold text-muted-foreground",
-                  isSelected && selectedPriority.color.text,
-                )}
-              >
-                {isSelected ? selectedPriority.label : "Priority"}
+                  )}
+                />
+                <span
+                  className={cn(
+                    "font-semibold text-muted-foreground",
+                    selectedPriority.color.text,
+                  )}
+                >
+                  {selectedPriority.label}
+                </span>
+              </div>
+            </SelectValue>
+          ) : (
+            <div className="flex items-center justify-center gap-2">
+              <Flag className="size-4 shrink-0 text-muted-foreground" />
+              <span className="font-semibold text-muted-foreground">
+                Priority
               </span>
             </div>
-          </SelectValue>
+          )}
         </SelectTrigger>
       </FormControl>
-      <SelectContent className="w-[200px]">
+      <SelectContent className="max-h-[245px] max-w-max">
         {TASK_PRIORITIES.map((taskPriority) => (
           <SelectItem
             key={taskPriority.id}
